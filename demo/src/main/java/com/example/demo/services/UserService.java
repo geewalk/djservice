@@ -8,6 +8,6 @@ public interface UserService extends CrudService<User, Long>{
 	
     User findByEmail(String email);
 
-    List<User> findAllByEmailike(String email);
+    List<User> findAllByEmailLike(String email);
 
 }

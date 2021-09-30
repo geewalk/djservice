@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.User;
@@ -11,6 +12,7 @@ import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.UserService;
 
 @Service
+@Profile("springdatajpa")
 public class UserSDJService implements UserService{
 	
 	private final UserRepository userRepository;
@@ -40,24 +42,24 @@ public class UserSDJService implements UserService{
 
 	@Override
 	public void delete(User object) {
-		// TODO Auto-generated method stub
+        userRepository.delete(object);
 		
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+        userRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public User findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+        return userRepository.findByEmail(email);
+
 	}
 
 	@Override
-	public List<User> findAllByEmailike(String email) {
+	public List<User> findAllByEmailLike(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,59 +1,50 @@
-package com.example.demo.services.springdatajpa;
+package com.example.demo.services.map;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.DJProfile;
-import com.example.demo.repositories.DJRepository;
 import com.example.demo.services.DJService;
 
 @Service
-public class DJProfileSDJService implements DJService{
+public class DJMapService extends AbstractMapService<DJProfile, Long> implements DJService{
 	
-	private final DJRepository djRepository;
-	
-
-	public DJProfileSDJService(DJRepository djRepositories) {
-		super();
-		this.djRepository = djRepositories;
-	}
-
 	@Override
 	public Set<DJProfile> findAll() {
-        Set<DJProfile> djs = new HashSet<>();
-        djRepository.findAll().forEach(djs::add);
-        return djs;
+		 return super.findAll();
 	}
 
 	@Override
 	public DJProfile findById(Long id) {
-        return djRepository.findById(id).orElse(null);
+		return super.findById(id);
 	}
 
 	@Override
 	public DJProfile save(DJProfile object) {
-        return djRepository.save(object);
+        return super.save(object);
 	}
 
 	@Override
 	public void delete(DJProfile object) {
-		// TODO Auto-generated method stub
+		super.delete(object);
 		
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		super.deleteById(id);
 		
 	}
 
 	@Override
 	public DJProfile findByDjName(String djName) {
-		// TODO Auto-generated method stub
-		return null;
+	    return this.findAll()
+                .stream()
+                .filter(dj -> dj.getDjName().equalsIgnoreCase(djName))
+                .findFirst()
+                .orElse(null);
 	}
 
 	@Override
@@ -61,5 +52,4 @@ public class DJProfileSDJService implements DJService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

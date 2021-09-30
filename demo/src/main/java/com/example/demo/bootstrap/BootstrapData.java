@@ -1,16 +1,11 @@
 package com.example.demo.bootstrap;
 
-import java.util.Optional;
-
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.DJProfile;
 import com.example.demo.domain.User;
-import com.example.demo.repositories.DJRepository;
-import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.DJService;
 import com.example.demo.services.UserService;
 
@@ -18,14 +13,6 @@ import com.example.demo.services.UserService;
 @Transactional
 public class BootstrapData implements CommandLineRunner{
 	
-//	private final UserRepository userRepository;
-//	private final DJRepository djRepository;
-//	
-//	public BootstrapData(UserRepository userRepository, DJRepository djRepository) {
-//		super();
-//		this.userRepository = userRepository;
-//		this.djRepository = djRepository;
-//	}
 	
 	private final UserService userService;
 	private final DJService djService;
