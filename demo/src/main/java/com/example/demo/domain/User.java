@@ -1,45 +1,47 @@
 package com.example.demo.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 	private String email;
-	private String passWord;
+	private String password;
+	@ManyToMany(mappedBy = "users")
+	private Set<DJProfile> djProfiles = new HashSet<>();
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-	private DJ djProfile;
-	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.ALL)
-	private Set<DJ> djsFollowed;
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+//	private DJ djProfile;
+//	
+//	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.ALL)
+//	private Set<DJ> djsFollowed = new HashSet<>();
 	
 	public User() {
 		
 	}
 
-
-	public User(String email, String passWord, DJ djProfile, Set<DJ> djsFollowed) {
+	public User(String email, String password) {
 		super();
 		this.email = email;
-		this.passWord = passWord;
-		this.djProfile = djProfile;
-		this.djsFollowed = djsFollowed;
+		this.password = password;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -49,36 +51,20 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPassWord() {
-		return passWord;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public DJ getDjProfile() {
-		return djProfile;
+	public Set<DJProfile> getDjProfiles() {
+		return djProfiles;
 	}
 
-	public void setDjProfile(DJ djProfile) {
-		this.djProfile = djProfile;
-	}
-
-	public Set<DJ> getDjsFollowed() {
-		return djsFollowed;
-	}
-
-	public void setDjsFollowed(Set<DJ> djsFollowed) {
-		this.djsFollowed = djsFollowed;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setDjProfiles(Set<DJProfile> djProfiles) {
+		this.djProfiles = djProfiles;
 	}
 
 	@Override
@@ -108,10 +94,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", djProfile=" + djProfile + ", djsFollowed=" + djsFollowed
-				+ ", getEmail()=" + getEmail() + ", getPassWord()=" + getPassWord() + ", getDjProfile()="
-				+ getDjProfile() + ", getDjsFollowed()=" + getDjsFollowed() + ", getId()=" + getId() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+		return "User [id=" + id + ", email=" + email + "]"; 
 	}
 
 

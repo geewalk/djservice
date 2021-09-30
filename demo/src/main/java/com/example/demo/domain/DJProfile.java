@@ -1,62 +1,47 @@
 package com.example.demo.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class DJ {
+public class DJProfile {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String djName;
+    @ManyToMany
+    @JoinTable(name = "user_djprofile", joinColumns = @JoinColumn(name = "djprofile_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new HashSet<>();
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "user_dj", joinColumns = @JoinColumn(name = "dj_id"),
-		inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private User user;
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "user_dj", joinColumns = @JoinColumn(name = "dj_id"),
+//		inverseJoinColumns = @JoinColumn(name = "user_id"))
+//	private User user;
+//	
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "user_dj", joinColumns = @JoinColumn(name = "dj_id"),
+//		inverseJoinColumns = @JoinColumn(name = "user_id"))
+//	private Set<User> users = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "user_dj", joinColumns = @JoinColumn(name = "dj_id"),
-		inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private Set<User> users;
-	
-	public DJ(String djName, User user, Set<User> users) {
-		super();
-		this.djName = djName;
-		this.user = user;
-		this.users = users;
-	}
 
-	public DJ() {
+	public DJProfile() {
 		
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public DJProfile(String djName) {
+		super();
+		this.djName = djName;
 	}
 
 	public Long getId() {
@@ -75,6 +60,14 @@ public class DJ {
 		this.djName = djName;
 	}
 
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,7 +84,7 @@ public class DJ {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DJ other = (DJ) obj;
+		DJProfile other = (DJProfile) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -102,8 +95,7 @@ public class DJ {
 
 	@Override
 	public String toString() {
-		return "DJ [id=" + id + ", djName=" + djName + ", user=" + user + ", users=" + users + "]";
+		return "DJProfile [id=" + id + ", djName=" + djName + "]";
 	}
-
 
 }
